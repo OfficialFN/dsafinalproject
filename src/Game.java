@@ -1,43 +1,60 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-
-public class Game implements ActionListener {
-    Tile[][] board = new Tile[20][20];
+public class Game {
+    Tile[][] board = new Tile[20][20]; // 20x20 grid of tiles
     JButton dijkstra, gbfs, astar;
+    JPanel gridPanel;
+
     public Game() {
         dijkstra = new JButton("Dijkstra's Algorithm");
         gbfs = new JButton("Greedy Best First Search");
         astar = new JButton("A*");
 
-        JFrame frame = new JFrame();
-        frame.setLayout(new FlowLayout());
+        JFrame frame = new JFrame("Snake Board");
+        frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850,850);
-        frame.setBackground(Color.GREEN);
-        frame.add(dijkstra);
-        frame.add(gbfs);
-        frame.add(astar);
+        frame.setSize(850, 850);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(dijkstra);
+        buttonPanel.add(gbfs);
+        buttonPanel.add(astar);
+
+        gridPanel = new JPanel();
+        gridPanel.setLayout(new GridLayout(20, 20));
+        createGrid();
+
+        // Add panels to frame
+        frame.add(buttonPanel, BorderLayout.NORTH);
+        frame.add(gridPanel, BorderLayout.CENTER);
+
         frame.setVisible(true);
     }
 
     public void createGrid() {
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
-
+                Color color;
+                if ((i + j) % 2 == 0) {
+                    color = new Color(170, 215, 80);
+                } else {
+                    color = new Color(162, 209, 72);
+                }
+                board[i][j] = new Tile(color);
+                gridPanel.add(board[i][j]);
             }
         }
     }
-    public void paintComponent( Graphics g ) {
-        for ( int x = 30; x <= 300; x += 30 )
-            for ( int y = 30; y <= 300; y += 30 )
-                g.drawRect( x, y, 30, 30 );
 
+
+    class Tile extends JPanel {
+        public Tile(Color color) {
+            setBackground(color);
+        }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public static void main(String[] args) {
+        new Game();
     }
 }
