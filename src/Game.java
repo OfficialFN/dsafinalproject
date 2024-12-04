@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game {
-    Tile[][] board = new Tile[20][20]; // 20x20 grid of tiles
+    Tile[][] board = new Tile[20][20];
     JButton dijkstra, gbfs, astar;
     JPanel gridPanel;
 
@@ -25,7 +25,6 @@ public class Game {
         gridPanel.setLayout(new GridLayout(20, 20));
         createGrid();
 
-        // Add panels to frame
         frame.add(buttonPanel, BorderLayout.NORTH);
         frame.add(gridPanel, BorderLayout.CENTER);
 
